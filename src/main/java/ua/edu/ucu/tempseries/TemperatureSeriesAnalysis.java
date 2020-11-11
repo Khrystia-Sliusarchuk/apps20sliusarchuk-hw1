@@ -17,8 +17,8 @@ public class TemperatureSeriesAnalysis {
     public void isValid(double[] temperatureSeries) {
         for (double val : temperatureSeries) {
             if (val < MIN_TEMP) {
-                throw new InputMismatchException
-                        ("Temperature is less then " + MIN_TEMP + "!");
+                throw new InputMismatchException(
+                        "Temperature is less then " + MIN_TEMP + "!");
             }
         }
     }
@@ -53,8 +53,9 @@ public class TemperatureSeriesAnalysis {
     public double deviation() {
         isEmpty();
         if (tempNumber == 1) {
-            throw new IllegalArgumentException("You " +
-                    "can't find the deviation of the series including just one element!");
+            throw new IllegalArgumentException("You "
+                    + "can't find the deviation of the "
+                    + "series including just one element!");
         } else {
             double seriesAver = average();
             double seriesDev = 0;
