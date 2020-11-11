@@ -9,19 +9,19 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysisTest {
 
-    private double[] oneElemArr ;
+    private double[] oneElemArr;
     private double[] emptyArr;
     private double[] badArr;
     private double[] simpleArr;
-    private double[] longArr ;
+    private double[] longArr;
 
     @Before
     public void setUp() {
-        oneElemArr = new double[] {-1.0};
-        emptyArr = new double[]  {};
-        badArr = new double[] {-1.0, 34.8, -345.9, 56.8};
-        simpleArr = new double[]  {3.0, -5.0, 1.0, 5.0, -0.2, 0.2};
-        longArr = new double[] {23.0, 65.8, -162.0, 0.0, 75.0, -23.1, 267.0, -272.9};
+        oneElemArr = new double[]{-1.0};
+        emptyArr = new double[]{};
+        badArr = new double[]{-1.0, 34.8, -345.9, 56.8};
+        simpleArr = new double[]{3.0, -5.0, 1.0, 5.0, -0.2, 0.2};
+        longArr = new double[]{23.0, 65.8, -162.0, 0.0, 75.0, -23.1, 267.0, -272.9};
     }
 
     @Test
@@ -111,7 +111,7 @@ public class TemperatureSeriesAnalysisTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDeviationWithOneElementArray(){
+    public void testDeviationWithOneElementArray() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(oneElemArr);
 
         seriesAnalysis.deviation();
@@ -295,7 +295,7 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testFindTempsLessThenWithOneElementArray() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(oneElemArr);
-        double[] expResult = new double[] {};
+        double[] expResult = new double[]{};
 
         double[] actualResult = seriesAnalysis.findTempsLessThen(-4.0);
 
@@ -305,7 +305,7 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testFindTempsLessThenWithOneElementArray2() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(oneElemArr);
-        double[] expResult = new double[] {};
+        double[] expResult = new double[]{};
 
         double[] actualResult = seriesAnalysis.findTempsLessThen(-1.0);
 
@@ -352,7 +352,7 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testFindTempsGreaterThenWithOneElementArray() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(oneElemArr);
-        double[] expResult = new double[] {};
+        double[] expResult = new double[]{};
 
         double[] actualResult = seriesAnalysis.findTempsGreaterThen(4.0);
 
@@ -362,7 +362,7 @@ public class TemperatureSeriesAnalysisTest {
     @Test
     public void testFindTempsGreaterThenWithOneElementArray2() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(oneElemArr);
-        double[] expResult = new double[] {};
+        double[] expResult = new double[]{};
 
         double[] actualResult = seriesAnalysis.findTempsGreaterThen(-1.0);
 
@@ -422,7 +422,7 @@ public class TemperatureSeriesAnalysisTest {
     public void testTempSummaryStatistics2() {
         TemperatureSeriesAnalysis tempArr = new TemperatureSeriesAnalysis(simpleArr);
         TempSummaryStatistics tempArr2 = tempArr.summaryStatistics();
-                
+
         double average = tempArr2.getAvgTemp();
         double deviation = tempArr2.getDevTemp();
         double min = tempArr2.getMinTemp();
@@ -433,7 +433,7 @@ public class TemperatureSeriesAnalysisTest {
         assertEquals(tempArr.max(), max, 0.00001);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSummaryStatistics_EmptySeries() {
         double[] temperatureSeries = {};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
@@ -488,7 +488,7 @@ public class TemperatureSeriesAnalysisTest {
         assertEquals(expResult, actualResult, 0.00001);
     }
 
-    @Test (expected = InputMismatchException.class)
+    @Test(expected = InputMismatchException.class)
     public void testAddTempsWithForbiddenTempInArgument() {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(simpleArr);
 

@@ -9,21 +9,16 @@ public class TemperatureSeriesAnalysis {
     private int tempNumber;
     private int seriesCap;
 
-    public void setTemperatureSeries(double[] temperatureSeries){
-        this.tempSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
-        seriesCap = tempSeries.length;
-        tempNumber = seriesCap;
-    }
-
     public TemperatureSeriesAnalysis() {
         setTemperatureSeries(new double[1]);
         tempNumber = 0;
     }
 
-    public void isValid(double[] temperatureSeries){
-        for (double val: temperatureSeries){
-            if (val < MIN_TEMP){
-                throw new InputMismatchException("Temperature is less then " + MIN_TEMP + "!");
+    public void isValid(double[] temperatureSeries) {
+        for (double val : temperatureSeries) {
+            if (val < MIN_TEMP) {
+                throw new InputMismatchException
+                        ("Temperature is less then " + MIN_TEMP + "!");
             }
         }
     }
@@ -33,8 +28,15 @@ public class TemperatureSeriesAnalysis {
         setTemperatureSeries(temperatureSeries);
     }
 
-    public void isEmpty(){
-        if (tempNumber == 0){
+    public void setTemperatureSeries(double[] temperatureSeries) {
+        this.tempSeries = Arrays.copyOf(temperatureSeries,
+                temperatureSeries.length);
+        seriesCap = tempSeries.length;
+        tempNumber = seriesCap;
+    }
+
+    public void isEmpty() {
+        if (tempNumber == 0) {
             throw new IllegalArgumentException("Temperature series is empty!");
         }
     }
@@ -42,7 +44,7 @@ public class TemperatureSeriesAnalysis {
     public double average() {
         isEmpty();
         double seriesSum = 0;
-        for (double val: tempSeries){
+        for (double val : tempSeries) {
             seriesSum = seriesSum + val;
         }
         return seriesSum / tempNumber;
@@ -50,13 +52,14 @@ public class TemperatureSeriesAnalysis {
 
     public double deviation() {
         isEmpty();
-        if (tempNumber == 1){
-            throw new IllegalArgumentException("You can't find the deviation of the series including just one element!");
-        }else {
+        if (tempNumber == 1) {
+            throw new IllegalArgumentException("You " +
+                    "can't find the deviation of the series including just one element!");
+        } else {
             double seriesAver = average();
             double seriesDev = 0;
             for (double val : tempSeries) {
-                seriesDev = seriesDev + Math.pow((val - seriesAver), 2);
+                seriesDev = seriesDev + (val - seriesAver) * (val - seriesAver);
             }
             return Math.sqrt(seriesDev / tempNumber);
         }
@@ -64,15 +67,14 @@ public class TemperatureSeriesAnalysis {
 
     public double min() {
         isEmpty();
-        if (tempNumber == 1){
+        if (tempNumber == 1) {
             return tempSeries[0];
-        }else {
+        } else {
             double minSeries = Double.MAX_VALUE;
             for (double val : tempSeries) {
                 if (val < minSeries) {
                     minSeries = val;
                 }
-                ;
             }
             return minSeries;
         }
@@ -80,14 +82,14 @@ public class TemperatureSeriesAnalysis {
 
     public double max() {
         isEmpty();
-        if (tempNumber == 1){
+        if (tempNumber == 1) {
             return tempSeries[0];
-        }else{
+        } else {
             double maxSeries = Double.MIN_VALUE;
-            for (double val: tempSeries){
-                if (val > maxSeries){
+            for (double val : tempSeries) {
+                if (val > maxSeries) {
                     maxSeries = val;
-                };
+                }
             }
             return maxSeries;
         }
@@ -101,37 +103,37 @@ public class TemperatureSeriesAnalysis {
         isEmpty();
         double currDiff = Double.MAX_VALUE;
         double closestTemp = 0.0;
-        for (double val: tempSeries){
-            if (Math.abs(val - tempValue) < currDiff){
+        for (double val : tempSeries) {
+            if (Math.abs(val - tempValue) < currDiff) {
                 currDiff = Math.abs(val - tempValue);
                 closestTemp = val;
-            }
-            else if (Math.abs(val - tempValue) == currDiff){
-                closestTemp = Math.max(val,closestTemp);
+            } else if (Math.abs(val - tempValue) == currDiff) {
+                closestTemp = Math.max(val, closestTemp);
             }
         }
         return closestTemp;
     }
 
-    public double[] findTempsLessOrGreaterThen(double tempValue, boolean less){
+    public double[] findTempsLessOrGreaterThen(double tempValue, boolean less) {
         isEmpty();
         int amount = 0;
-        for (double val: tempSeries){
-            if (val < tempValue && less || val > tempValue && !less){
+        for (double val : tempSeries) {
+            if (val < tempValue && less || val > tempValue && !less) {
                 amount = amount + 1;
             }
         }
 
         double[] tempsLessOrGreaterThanSeries = new double[amount];
         int temporalIndex = 0;
-        for (double val: tempSeries){
-            if (val < tempValue && less || val > tempValue && !less){
+        for (double val : tempSeries) {
+            if (val < tempValue && less || val > tempValue && !less) {
                 tempsLessOrGreaterThanSeries[temporalIndex] = val;
                 temporalIndex = temporalIndex + 1;
             }
         }
 
-        TemperatureSeriesAnalysis result = new TemperatureSeriesAnalysis(tempsLessOrGreaterThanSeries);
+        TemperatureSeriesAnalysis result =
+                new TemperatureSeriesAnalysis(tempsLessOrGreaterThanSeries);
         return result.tempSeries;
     }
 
@@ -147,8 +149,8 @@ public class TemperatureSeriesAnalysis {
         return new TempSummaryStatistics(average(), deviation(), min(), max());
     }
 
-    public void addOneTemp(double temp){
-        if (seriesCap==tempNumber){
+    public void addOneTemp(double temp) {
+        if (seriesCap == tempNumber) {
             double[] newSeries = new double[2 * (seriesCap + 1)];
             System.arraycopy(tempSeries, 0, newSeries, 0, tempNumber);
             tempSeries = newSeries;
