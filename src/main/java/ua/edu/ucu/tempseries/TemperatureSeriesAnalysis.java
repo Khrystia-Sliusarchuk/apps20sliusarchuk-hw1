@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273.0;
+    static final double DELTA = 1e-6;
+    ;
     private double[] tempSeries;
     private int tempNumber;
     private int seriesCap;
@@ -12,15 +14,6 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis() {
         setTemperatureSeries(new double[1]);
         tempNumber = 0;
-    }
-
-    public void isValid(double[] temperatureSeries) {
-        for (double val : temperatureSeries) {
-            if (val < MIN_TEMP) {
-                throw new InputMismatchException(
-                        "Temperature is less then " + MIN_TEMP + "!");
-            }
-        }
     }
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
@@ -33,6 +26,15 @@ public class TemperatureSeriesAnalysis {
                 temperatureSeries.length);
         seriesCap = tempSeries.length;
         tempNumber = seriesCap;
+    }
+
+    public void isValid(double[] temperatureSeries) {
+        for (double val : temperatureSeries) {
+            if (val < MIN_TEMP) {
+                throw new InputMismatchException(
+                        "Temperature is less then " + MIN_TEMP + "!");
+            }
+        }
     }
 
     public void isEmpty() {
@@ -108,7 +110,7 @@ public class TemperatureSeriesAnalysis {
             if (Math.abs(val - tempValue) < currDiff) {
                 currDiff = Math.abs(val - tempValue);
                 closestTemp = val;
-            } else if (Math.abs(val - tempValue) == currDiff) {
+            } else if (Math.abs(val - tempValue) - currDiff < DELTA) {
                 closestTemp = Math.max(val, closestTemp);
             }
         }
