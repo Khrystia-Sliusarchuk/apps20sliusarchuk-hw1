@@ -156,7 +156,7 @@ public class TemperatureSeriesAnalysis {
             double[] newSeries = new double[2 * (seriesCap + 1)];
             System.arraycopy(tempSeries, 0, newSeries, 0, tempNumber);
             tempSeries = newSeries;
-            seriesCap = seriesCap * 2;
+            seriesCap = (seriesCap + 1) * 2;
         }
         tempSeries[tempNumber] = temp;
         tempNumber = tempNumber + 1;
