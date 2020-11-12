@@ -6,7 +6,6 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     static final double MIN_TEMP = -273.0;
     static final double DELTA = 1e-6;
-    ;
     private double[] tempSeries;
     private int tempNumber;
     private int seriesCap;
